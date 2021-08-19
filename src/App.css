@@ -16,7 +16,7 @@
 
 
 .App-header{
-  background-color: #282c34;
+  background-color: #212121;
  /* min-height: 20vh;*/
   display: flex;
  /* flex-direction: column;
@@ -29,7 +29,7 @@
     align-items: center;
 }
 .App-footer  {
-    background-color: #282c34;
+    background-color: #212121 ;
     color: #fff;
     text-align: center;
     padding: 10px;
@@ -41,7 +41,7 @@
 .App-main {
     border: 2px #A54545 dashed;
     padding: 20px;
-    width: 60%;
+    width: 80%;
     min-height: 65%;
     margin: 50px auto;
 }
@@ -57,4 +57,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.MuiButton-root{
+  margin-left: 5px !important;
+  color: white !important;
+}
+a{
+  text-decoration: none;
+  color: #2FB5D2;
 }
