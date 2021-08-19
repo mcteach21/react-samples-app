@@ -1,21 +1,48 @@
 import logo from './logo.svg';
 import './App.css';
 
+import React from 'react';
+
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { Button } from '@material-ui/core';
 
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 function App() {
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        <div>
-          <Button variant="outlined" color="primary" href="tictoe">Tic Toe</Button>
-          <Button variant="outlined" color="secondary" href="memory">Memory</Button>
-          <Button variant="outlined" color="primary" href="game">
-            Link
+        <div className="menu-right">
+          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} variant="contained" color="secondary">
+            Games
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>TicToe</MenuItem>
+            <MenuItem onClick={handleClose}>Memory</MenuItem>
+          </Menu>
+          <Button variant="contained" color="primary">
+            About
           </Button>
         </div>
       </header>
@@ -75,7 +102,7 @@ function App() {
 
       <footer className="App-footer">
         <div className="footer-copyright text-center py-3">
-          © 2021 Copyright <a href="https://github.com/mcteach21">mc.tech21</a>
+          ©2021 Copyright <a href="https://github.com/mcteach21/react-samples-app">mc.tech21</a>
         </div>
       </footer>
     </div>

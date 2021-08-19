@@ -17,16 +17,12 @@
 
 .App-header{
   background-color: #212121;
- /* min-height: 20vh;*/
   display: flex;
- /* flex-direction: column;
-  align-items: center;
-  justify-content: center;*/
   font-size: calc(10px + 2vmin);
   color: white;
 
   justify-content: space-between;
-    align-items: center;
+  align-items: center;
 }
 .App-footer  {
     background-color: #212121 ;
@@ -39,7 +35,7 @@
     width: 100%;
 }
 .App-main {
-    border: 2px #A54545 dashed;
+    /*border: 2px #A54545 dashed;*/
     padding: 20px;
     width: 80%;
     min-height: 65%;
