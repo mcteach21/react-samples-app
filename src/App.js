@@ -18,9 +18,14 @@ function App() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleMenuClick= (event) => {
+    alert(event.currentTarget.name);
     setAnchorEl(null);
-  };
+  }
+
+  const handleClic= (event) => {
+    alert(this);
+  }
 
   return (
     <div className="App">
@@ -36,12 +41,16 @@ function App() {
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
-            onClose={handleClose}
+            onClose={handleMenuClick}
           >
-            <MenuItem onClick={handleClose}>TicToe</MenuItem>
-            <MenuItem onClick={handleClose}>Memory</MenuItem>
+            <MenuItem onClick={handleMenuClick}>TicToe</MenuItem>
+            <MenuItem onClick={handleMenuClick}>Memory</MenuItem>
+
+            <MenuItem 
+                onClick={ () => handleClic() }> Menu X 
+             </MenuItem>
           </Menu>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={handleMenuClick}>
             About
           </Button>
         </div>
