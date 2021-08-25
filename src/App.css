@@ -69,7 +69,7 @@ a{
 .navbar-menu a{
     padding: 5px;
     float: left;
-    size: 80% !important;
+    /*size: 0,8 !important;*/
 }
 
 
