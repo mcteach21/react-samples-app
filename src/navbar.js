@@ -1,11 +1,31 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink as Link} from "react-router-dom";
 
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+
+import styled from "styled-components";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
+
+  const NavLink = styled(Link)`
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 1rem;
+    height: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    &.active {
+      color:black;
+    }
+    &:hover {
+      color: orangered;
+    }
+ `;
+
   return (
     <nav
       className="navbar is-primary"

@@ -30,17 +30,17 @@ class Board extends React.Component {
       if(this.itsOver)
           return;
 
+      document.getElementById('status').innerHTML=this.title+ ' '+this.lastMove;
       this.lastMove = this.lastMove=='X'?'O':'X';
       this.moves[i]=this.lastMove;
+
+      document.getElementById('sq'+i).innerHTML=this.lastMove;
+
 
       this.itsOver=this.checkMoves();
       if(this.itsOver){
           document.getElementById('status').innerHTML='The winner is : '+i+'!';
-      }else{
-          document.getElementById('sq'+i).innerHTML=this.lastMove;
-          document.getElementById('status').innerHTML=this.title+ ' '+this.lastMove;
       }
-
   }
 
   renderSquare(i) {
@@ -51,10 +51,6 @@ class Board extends React.Component {
           this.moves.push(null);
   }
   checkMoves(){
-      console.log(this.moves);
-      console.log(this.moves[0]+' '+this.moves[1]+' '+this.moves[2]);
-
-
       return (this.moves[0]!=null && this.moves[0]==this.moves[1] && this.moves[1]==this.moves[2])
           || (this.moves[3]!=null && this.moves[3]==this.moves[4] && this.moves[4]==this.moves[5])
           || (this.moves[6]!=null && this.moves[6]==this.moves[7] && this.moves[7]==this.moves[8])
@@ -63,6 +59,8 @@ class Board extends React.Component {
           || (this.moves[3]!=null && this.moves[0]==this.moves[3] && this.moves[3]==this.moves[6])
           || (this.moves[4]!=null && this.moves[1]==this.moves[4] && this.moves[4]==this.moves[7])
           || (this.moves[5]!=null && this.moves[2]==this.moves[5] && this.moves[5]==this.moves[8]);
+
+      //TODO : simplify!
   }
   createBoard() {
       let n=0;
@@ -80,7 +78,6 @@ class Board extends React.Component {
      //       {this.createBoard()}
      //   </div>
      // );
-
       const e = React.createElement;
       return e('div', {}, this.createBoard());
   }
