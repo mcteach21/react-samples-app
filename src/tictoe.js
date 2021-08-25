@@ -1,19 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './tictoe.css';
 
 
 class Square extends React.Component {
 
+  isChecked = true;
+
   constructor(props){
   	super(props);
-
-  	this.state = {value: props.name};
+  	this.state = {value: props.value};
   }	
+
+
   display(value){
-  	console.log('clicked : '+value);
-  	document.getElementById('status').innerHTML='clicked : '+value;
-  	this.setState({value: null});
+  	//console.log('clicked : '+value);
+  	//document.getElementById('status').innerHTML='clicked : '+value;
+
+  	this.setState({value: this.isChecked?'O':'X'});
+    this.isChecked = !this.isChecked;
   }	
   render() {
     return (
@@ -25,8 +30,11 @@ class Square extends React.Component {
 }
 
 class Board extends React.Component {
+
+  lastMove = 'X';
+
   renderSquare(i) {
-    return <Square value={i} name={'s'+i} />;
+    return <Square value={'-'} name={i} />;
   }
 
   render() {
@@ -55,7 +63,7 @@ class Board extends React.Component {
   }
 }
 
-class Game extends React.Component {
+class TicToe extends React.Component {
   render() {
     return (
       <div className="game">
@@ -72,9 +80,11 @@ class Game extends React.Component {
   }
 }
 
+export default TicToe;
+
 // ========================================
 
-ReactDOM.render(
-  <Game />,
-  document.getElementById('root')
-);
+// ReactDOM.render(
+//   <Game />,
+//   document.getElementById('root')
+// );
