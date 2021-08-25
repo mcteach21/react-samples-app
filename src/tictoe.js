@@ -1,28 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './tictoe.css';
 
 
 class Square extends React.Component {
-
-  isChecked = true;
-
   constructor(props){
   	super(props);
-  	this.state = {value: props.value};
-  }	
-
-
-  display(value){
-  	//console.log('clicked : '+value);
-  	//document.getElementById('status').innerHTML='clicked : '+value;
-
-  	this.setState({value: this.isChecked?'O':'X'});
-    this.isChecked = !this.isChecked;
-  }	
+  	this.state = {value: props.value, id: 'sq'+props.name, click: props.click};
+  }
   render() {
     return (
-      <button className="square" onClick={() => this.display(this.props.value)}>
+      <button className="square" id={this.state.id} onClick={this.state.click}>
         {this.state.value}
       </button>
     );
@@ -30,37 +17,75 @@ class Square extends React.Component {
 }
 
 class Board extends React.Component {
-
+  title = 'Next Move : ';
   lastMove = 'X';
+  itsOver = false;
+  moves = [];
+
+  constructor(props) {
+      super(props);
+      this.initMoves();
+  }
+  onItemClick(i) {
+      if(this.itsOver)
+          return;
+
+      this.lastMove = this.lastMove=='X'?'O':'X';
+      this.moves[i]=this.lastMove;
+
+      this.itsOver=this.checkMoves();
+      if(this.itsOver){
+          document.getElementById('status').innerHTML='The winner is : '+i+'!';
+      }else{
+          document.getElementById('sq'+i).innerHTML=this.lastMove;
+          document.getElementById('status').innerHTML=this.title+ ' '+this.lastMove;
+      }
+
+  }
 
   renderSquare(i) {
-    return <Square value={'-'} name={i} />;
+    return <Square value={'-'} name={i} click={()=>this.onItemClick(i)} />;
   }
+  initMoves(){
+      for (let i = 0; i < 9; i++)
+          this.moves.push(null);
+  }
+  checkMoves(){
+      console.log(this.moves);
+      console.log(this.moves[0]+' '+this.moves[1]+' '+this.moves[2]);
 
+
+      return (this.moves[0]!=null && this.moves[0]==this.moves[1] && this.moves[1]==this.moves[2])
+          || (this.moves[3]!=null && this.moves[3]==this.moves[4] && this.moves[4]==this.moves[5])
+          || (this.moves[6]!=null && this.moves[6]==this.moves[7] && this.moves[7]==this.moves[8])
+          || (this.moves[4]!=null && this.moves[0]==this.moves[4] && this.moves[4]==this.moves[8])
+          || (this.moves[4]!=null && this.moves[2]==this.moves[4] && this.moves[4]==this.moves[6])
+          || (this.moves[3]!=null && this.moves[0]==this.moves[3] && this.moves[3]==this.moves[6])
+          || (this.moves[4]!=null && this.moves[1]==this.moves[4] && this.moves[4]==this.moves[7])
+          || (this.moves[5]!=null && this.moves[2]==this.moves[5] && this.moves[5]==this.moves[8]);
+  }
+  createBoard() {
+      let n=0;
+
+      let contents = [];
+      contents.push(<div className="status" id="status">{this.title+ ' '+this.lastMove}</div>);
+      for (let i = 0; i < 3; i++) {
+          contents.push(<div className="board-row">{this.renderSquare(n++)}{this.renderSquare(n++)}{this.renderSquare(n++)}</div>);
+      }
+      return contents;
+  }
   render() {
-    const status = 'Next player: X';
+     // return (
+     //   <div>
+     //       {this.createBoard()}
+     //   </div>
+     // );
 
-    return (
-      <div>
-        <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
+      const e = React.createElement;
+      return e('div', {}, this.createBoard());
   }
+
+
 }
 
 class TicToe extends React.Component {
