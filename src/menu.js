@@ -1,93 +1,69 @@
-import React, { Component } from 'react'
-import { Input, Menu00 } from 'semantic-ui-react'
-import { NavLink, withRouter } from 'react-router-dom'
+import React from 'react';
 
+import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-export default class MainMenu extends Component {
-  state = { activeItem: 'home' }
+import { NavLink as Link} from 'react-router-dom';
+import styled from "styled-components";
 
-  constructor(props){
-    super(props);
+export default function SimpleMenu() {
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-    //const [anchorEl, setAnchorEl] = React.useState(null);
-  } 
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name })
-  }
+    const NavLink = styled(Link)`
+      color: #fff;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 0 1rem;
+      height: 100%;
+      font-weight: bold;
+      cursor: pointer;
 
-  //    
+      &.active {
+        color: #1bde63;
+      }
 
-  handleClick(event){
-    //setAnchorEl(event.currentTarget);
-  }
+      &:hover {
+        color: orangered;
+      }
+    `;
 
-  handleMenuClick(event){
-    //alert(event.currentTarget.name);
-    //setAnchorEl(null);
-  }
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
- handleItemClick(e, name){
-    //this.setState({ activeItem: name })
-    alert(name);
-  }
-
-  render() {
-    
-    const { activeItem } = this.state;
-
-
-   
-
-    /*
-     <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClick}
-                >
-                  <MenuItem 
-                      onClick={handleMenuClick}>
-                      TicToe
-                  </MenuItem>
-                  <MenuItem onClick={handleMenuClick}>Memory</MenuItem>
-
-                  <MenuItem 
-                      onClick={ () => handleClic() }>  <AccountCircleIcon /> Menu X 
-                  </MenuItem>
-
-                  <MenuItem as={Link} to='/home'>
-                    <HomeRoundedIcon /> Home
-                  </MenuItem>
-                </Menu>
-    */
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
-      <Menu primary  
-                  id="simple-menu"
-
-                  onClose={this.handleMenuClick}>
-        <MenuItem
-          as={NavLink} to="/"
-          name='home'
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          as={NavLink} to="/about"
-          name='about'
-          active={activeItem === 'about'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          as={NavLink} to="/profile"
-          name='my profile'
-          active={activeItem === 'profile'}
-          onClick={this.handleItemClick}
-        />
-      </Menu>
-    )
-  }
+        <div>
+            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}
+                    style={{ float: 'left',  fontWeight: 'bold'}}>
+                Games
+            </Button>
+            <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}>
+                <NavLink to='/tictoe' style={{ textDecoration: 'none' }}>
+                    <MenuItem onClick={handleClose}>TicToe</MenuItem>
+                </NavLink>
+                <NavLink to='/memory' style={{ textDecoration: 'none' }}>
+                    <MenuItem onClick={handleClose}>Memory</MenuItem>
+                </NavLink>
+            </Menu>
+            <NavLink
+                className="navbar-item"
+                activeClassName="is-active"
+                to="/about"
+                style={{ padding: '6px 8px'}}
+            >
+                About
+            </NavLink>
+        </div>
+    );
 }

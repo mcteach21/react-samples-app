@@ -27,7 +27,7 @@ class Board extends React.Component {
       this.initMoves();
   }
   onItemClick(i) {
-      if(this.itsOver)
+      if(this.itsOver || this.moves[i]!=null)
           return;
 
       document.getElementById('status').innerHTML=this.title+ ' '+this.lastMove;
@@ -35,11 +35,11 @@ class Board extends React.Component {
       this.moves[i]=this.lastMove;
 
       document.getElementById('sq'+i).innerHTML=this.lastMove;
-
+      document.getElementById('sq'+i).style.color = this.lastMove==='X'?'blue':'crimson';
 
       this.itsOver=this.checkMoves();
       if(this.itsOver){
-          document.getElementById('status').innerHTML='The winner is : '+i+'!';
+          document.getElementById('status').innerHTML='Game Over!'; //The winner is : '+i+'!';
       }
   }
 
@@ -51,16 +51,38 @@ class Board extends React.Component {
           this.moves.push(null);
   }
   checkMoves(){
-      return (this.moves[0]!=null && this.moves[0]==this.moves[1] && this.moves[1]==this.moves[2])
-          || (this.moves[3]!=null && this.moves[3]==this.moves[4] && this.moves[4]==this.moves[5])
-          || (this.moves[6]!=null && this.moves[6]==this.moves[7] && this.moves[7]==this.moves[8])
-          || (this.moves[4]!=null && this.moves[0]==this.moves[4] && this.moves[4]==this.moves[8])
-          || (this.moves[4]!=null && this.moves[2]==this.moves[4] && this.moves[4]==this.moves[6])
-          || (this.moves[3]!=null && this.moves[0]==this.moves[3] && this.moves[3]==this.moves[6])
-          || (this.moves[4]!=null && this.moves[1]==this.moves[4] && this.moves[4]==this.moves[7])
-          || (this.moves[5]!=null && this.moves[2]==this.moves[5] && this.moves[5]==this.moves[8]);
+      // return (this.moves[0]!=null && this.moves[0]==this.moves[1] && this.moves[1]==this.moves[2])
+      //     || (this.moves[3]!=null && this.moves[3]==this.moves[4] && this.moves[4]==this.moves[5])
+      //     || (this.moves[6]!=null && this.moves[6]==this.moves[7] && this.moves[7]==this.moves[8])
+      //     || (this.moves[4]!=null && this.moves[0]==this.moves[4] && this.moves[4]==this.moves[8])
+      //     || (this.moves[4]!=null && this.moves[2]==this.moves[4] && this.moves[4]==this.moves[6])
+      //     || (this.moves[3]!=null && this.moves[0]==this.moves[3] && this.moves[3]==this.moves[6])
+      //     || (this.moves[4]!=null && this.moves[1]==this.moves[4] && this.moves[4]==this.moves[7])
+      //     || (this.moves[5]!=null && this.moves[2]==this.moves[5] && this.moves[5]==this.moves[8]);
 
-      //TODO : simplify!
+      const lines = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+      ];
+      for (let i = 0; i < lines.length; i++) {
+          const [a, b, c] = lines[i];
+          if (this.moves[a] && this.moves[a] === this.moves[b] && this.moves[a] === this.moves[c]) {
+
+              document.getElementById('sq'+a).classList.add("red-border");
+              document.getElementById('sq'+b).classList.add("red-border");
+              document.getElementById('sq'+c).classList.add("red-border");
+
+              return true;
+          }
+      }
+      return false;
+
   }
   createBoard() {
       let n=0;

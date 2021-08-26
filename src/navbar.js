@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink as Link} from "react-router-dom";
 
+import SimpleMenu from './menu.js';
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
@@ -49,6 +50,7 @@ const Navbar = () => {
 
         <div className={`navbar-menu ${isOpen && "is-active"}`}>
           <div className="navbar-start">
+
             <NavLink className="navbar-item" activeClassName="is-active" to="/">
               Home
             </NavLink>

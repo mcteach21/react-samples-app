@@ -1,5 +1,6 @@
 .square {
   background: #9DB0F6;
+  color: transparent;
   border: 1px solid #999;
   font-size: 24px;
   font-weight: bold;
@@ -17,7 +18,10 @@
 .kbd-navigation .square:focus {
   background: #ddd;
 }
-
+.red-border{
+  border-color: darkred;
+  border-width: 2px;
+}
 /*.game {*/
 /*  display: flex;*/
 /*  flex-direction: row;*/

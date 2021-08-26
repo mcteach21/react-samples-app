@@ -5,11 +5,10 @@ import './App.css';
 import React from 'react';
 
 import { BrowserRouter, Route, Switch  } from "react-router-dom"
-import { Link } from 'react-router-dom'
-
 
 import NavBar from './navbar.js';
 import TicToe from './tictoe.js';
+import SimpleMenu from './menu.js';
 
 function App() {
 
@@ -20,7 +19,7 @@ function App() {
             <img src={logo} className="App-logo" alt="logo" />
 
             <div className="menu-right">
-                <NavBar />
+                <SimpleMenu />
             </div>
           </header>
           
