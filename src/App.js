@@ -3,12 +3,12 @@ import logo from './logo.svg';
 
 import './App.css';
 import React from 'react';
-
 import { BrowserRouter, Route, Switch  } from "react-router-dom"
 
-import NavBar from './navbar.js';
-import TicToe from './tictoe.js';
 import SimpleMenu from './menu.js';
+
+import TicToe from './tictoe.js';
+import Memory from './memory.js';
 
 function App() {
 
@@ -17,24 +17,25 @@ function App() {
       <BrowserRouter>
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-
             <div className="menu-right">
                 <SimpleMenu />
             </div>
           </header>
-          
 
           <div className="App-main container mt-2" style={{ marginTop: 40 }}>
                 <div>
                   <Switch>
                     <Route exact path="/">
-                      <TicToe />
+
                     </Route>
                     <Route path="/about">
                       <h2>About </h2>
                     </Route>
-                    <Route path="/login">
-                      <h2>Profil.. </h2>
+                    <Route path="/tictoe">
+                        <TicToe />
+                    </Route>
+                    <Route path="/memory">
+                        <Memory />
                     </Route>
                   </Switch>
                 </div>
